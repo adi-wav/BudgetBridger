@@ -1,0 +1,6 @@
+.linegraph {
+  display: flex;
+  align-items: top;
+  justify-content: center;
+  height: 100vh;
+}
