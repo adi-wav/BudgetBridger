@@ -53,5 +53,34 @@ const getAllCategories = async (req, res) => {
     res.status(500).json({ message: "Internal server error" });
   }
 };
+const getUserExpenses = async (req, res) => {
+  try {
+    // Fetch expenses for the logged-in user
+    const expenses = await Expense.find({ userId: req.body.userId });
 
-module.exports = { getExpenses, createExpense, getAllCategories };
+    // If expenses are found, construct JSON response
+    if (expenses) {
+      const expenseData = expenses.map((expense) => ({
+        category: expense.category,
+        date: expense.expenses[0].date,
+        time: expense.expenses[0].time,
+        amount: expense.expenses[0].amount,
+        overspend: expense.expenses[0].overspend,
+      }));
+
+      // Sending JSON response
+      res.json(expenseData);
+    } else {
+      res.status(404).json({ message: "Expenses not found for the user" });
+    }
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Server Error" });
+  }
+};
+module.exports = {
+  getExpenses,
+  createExpense,
+  getAllCategories,
+  getUserExpenses,
+};
