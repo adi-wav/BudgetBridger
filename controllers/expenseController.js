@@ -11,9 +11,9 @@ const getExpenses = async (req, res) => {
 
 const createExpense = async (req, res) => {
   const { category, amount, date, time } = req.body;
-  const userId=req.body.userId;
+  const userId = req.body.userId;
   try {
-    let expense = await Expense.findOne({ category,userId });
+    let expense = await Expense.findOne({ category, userId });
     if (!expense) {
       const newExpense = new Expense({
         userId,
@@ -25,8 +25,9 @@ const createExpense = async (req, res) => {
       await newExpense.save();
       res.status(201).json(newExpense);
     } else {
+      const amountNumber = Number(amount);
       const newMean =
-        (expense.meanAmount * expense.cnt + amount) / (expense.cnt + 1);
+        (expense.meanAmount * expense.cnt + amountNumber) / (expense.cnt + 1);
       const overspend = newMean > expense.meanAmount * 1.15;
       expense.expenses.push({ amount, date, time, overspend });
       if (!overspend) {
@@ -41,7 +42,6 @@ const createExpense = async (req, res) => {
   }
 };
 
-
 const getAllCategories = async (req, res) => {
   const userId = req.body.userId; // Assuming userId is available in req.user
 
@@ -54,5 +54,4 @@ const getAllCategories = async (req, res) => {
   }
 };
 
-
-module.exports = { getExpenses, createExpense ,getAllCategories};
+module.exports = { getExpenses, createExpense, getAllCategories };
