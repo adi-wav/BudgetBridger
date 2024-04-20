@@ -1,7 +1,4 @@
-# BudgetBridger
-A web app for managing your personal finances.
-
-<h1 align="center">Hack36 7.0</h1>
+<h1 align="center">Hack36 7.0 - Budget Bridger</h1>
 <p align="center">
 </p>
 
