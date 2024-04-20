@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Bar } from "react-chartjs-2";
+import axios from "axios";
 import {
   Chart as ChartJS,
   BarElement,
@@ -21,17 +22,38 @@ ChartJS.register(
 
 const BarGraph = () => {
   // Sample JSON data
-  const jsonData = [
-    { amount: 10, overspend: false, datetime: "2024-04-15 08:00" },
-    { amount: 20, overspend: false, datetime: "2024-04-16 08:00" },
-    { amount: 30, overspend: true, datetime: "2024-04-17 08:00" },
-    { amount: 16, overspend: false, datetime: "2024-04-18 08:00" },
-    { amount: 13, overspend: false, datetime: "2024-04-19 08:00" },
-    { amount: 42, overspend: true, datetime: "2024-04-20 08:00" },
-  ];
+  // const jsonData = [
+  //   { amount: 10, overspend: false, datetime: "2024-04-15 08:00" },
+  //   { amount: 20, overspend: false, datetime: "2024-04-16 08:00" },
+  //   { amount: 30, overspend: true, datetime: "2024-04-17 08:00" },
+  //   { amount: 16, overspend: false, datetime: "2024-04-18 08:00" },
+  //   { amount: 13, overspend: false, datetime: "2024-04-19 08:00" },
+  //   { amount: 42, overspend: true, datetime: "2024-04-20 08:00" },
+  // ];
+  const [jsonData, setJsonData] = useState([]);
 
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get("/api/v1/expense/expenses", {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        });
+        console.log(response);
+        setJsonData(response.data);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
+  console.log(jsonData);
   // Extracting data from JSON
-  const labels = jsonData.map((data) => data.datetime);
+  const labels = jsonData.map(
+    (data) => `${data.date.split("T")[0]} ${data.time}`
+  );
   const amounts = jsonData.map((data) => data.amount);
   const overspends = jsonData.map((data) => data.overspend);
   const backgroundColors = overspends.map((overspend) =>
@@ -73,7 +95,7 @@ const BarGraph = () => {
           text: "Amount",
         },
         min: 0,
-        max: 50, // Adjust max value as needed
+        max: 500, // Adjust max value as needed
       },
     },
   };
