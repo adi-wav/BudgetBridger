@@ -59,17 +59,21 @@ const getUserExpenses = async (req, res) => {
     const expenses = await Expense.find({ userId: req.body.userId });
 
     // If expenses are found, construct JSON response
-    if (expenses) {
-      const expenseData = expenses.map((expense) => ({
-        category: expense.category,
-        date: expense.expenses[0].date,
-        time: expense.expenses[0].time,
-        amount: expense.expenses[0].amount,
-        overspend: expense.expenses[0].overspend,
-      }));
+    if (expenses.length > 0) {
+      let allExpenses = [];
+      expenses.forEach((expense) => {
+        expense.expenses.forEach((exp) => {
+          allExpenses.push({
+            category: expense.category,
+            amount: exp.amount,
+            date: exp.date,
+            time: exp.time,
+            overspend: exp.overspend
+          });
+        });
+      });
 
-      // Sending JSON response
-      res.json(expenseData);
+      res.json(allExpenses);
     } else {
       res.status(404).json({ message: "Expenses not found for the user" });
     }
