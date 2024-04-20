@@ -41,4 +41,18 @@ const createExpense = async (req, res) => {
   }
 };
 
-module.exports = { getExpenses, createExpense };
+
+const getAllCategories = async (req, res) => {
+  const userId = req.body.userId; // Assuming userId is available in req.user
+
+  try {
+    const categories = await Expense.distinct("category", { userId });
+    res.status(200).json(categories);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+};
+
+
+module.exports = { getExpenses, createExpense ,getAllCategories};
