@@ -11,6 +11,7 @@ const port = process.env.PORT;
 app.use(express.json());
 
 app.use("/api/v1/user", require("./routes/userRoutes"));
+app.use("/api/v1/expense", require("./routes/expenseRoutes"));
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
