@@ -8,7 +8,7 @@
   A web app for managing your personal finances and keeping the expenses in check along with graphical analysis.
  
 ## Demo Video Link:
-  <a href="https://drive.google.com/file/d/1BvIN0ey18mFS1dTxjL3XUb5Dxo7NthPU/view?usp=drivesdk">https://drive.google.com/file/d/1BvIN0ey18mFS1dTxjL3XUb5Dxo7NthPU/view?usp=drivesdk</a>
+  <a href="https://youtu.be/fIDMOQjhXwQ?si=J9R6YnsEmEYMQDtK">https://youtu.be/fIDMOQjhXwQ?si=J9R6YnsEmEYMQDtK</a>
   
 ## Presentation Link:
   <a href="https://docs.google.com/presentation/d/1Bw1DX-3G1WvUNBNVtdxqIweNKvvESBmb/edit?usp=drivesdk&ouid=100759802651720078964&rtpof=true&sd=true">PPT link</a>
