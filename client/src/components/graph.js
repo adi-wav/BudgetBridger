@@ -20,7 +20,7 @@ ChartJS.register(
   Tooltip
 );
 
-const BarGraph = () => {
+const BarGraph = ({ refresh }) => {
   // Sample JSON data
   // const jsonData = [
   //   { amount: 10, overspend: false, datetime: "2024-04-15 08:00" },
@@ -48,13 +48,13 @@ const BarGraph = () => {
     };
 
     fetchData();
-  }, []);
+  }, [[refresh]]);
   console.log(jsonData);
   // Extracting data from JSON
   const labels = jsonData.map(
     (data) => `${data.date.split("T")[0]} ${data.time} ${data.category}`
   );
-  const category=jsonData.map((data)=>data.category)
+  const category = jsonData.map((data) => data.category);
   const amounts = jsonData.map((data) => data.amount);
   const overspends = jsonData.map((data) => data.overspend);
   const backgroundColors = overspends.map((overspend) =>
@@ -66,7 +66,7 @@ const BarGraph = () => {
     datasets: [
       {
         label: "Expense",
-        data:amounts,
+        data: amounts,
         backgroundColor: backgroundColors,
         borderColor: "black",
         borderWidth: 1,
@@ -103,7 +103,9 @@ const BarGraph = () => {
 
   return (
     <div>
-      <h2 style={{ textAlign: "center" }}>Graphical representation of expenditure </h2>
+      <h2 style={{ textAlign: "center" }}>
+        Graphical representation of expenditure{" "}
+      </h2>
       <div
         style={{
           width: "60%",

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
-import "../styles/HomeStyle.css"
-function AutoSuggest() {
+import "../styles/HomeStyle.css";
+function AutoSuggest({ setRefreshGraph }) {
   // const [input, setInput] = useState("");
   // const [suggestions, setSuggestions] = useState([]);
 
@@ -62,6 +62,7 @@ function AutoSuggest() {
         console.error("Error saving expense:", error);
         // Display error message or handle error
       });
+    setRefreshGraph((prev) => !prev);
   };
 
   return (

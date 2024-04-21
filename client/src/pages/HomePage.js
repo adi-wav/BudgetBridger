@@ -125,14 +125,14 @@ import AutoSuggest from "../components/home";
 
 // export default AutoSuggest;
 
-const HomePage=()=>{
-  return(
+const HomePage = () => {
+  const [refreshGraph, setRefreshGraph] = useState(false);
+  return (
     <>
-    <AutoSuggest/>
-    <BarGraph/>
-    
+      <AutoSuggest setRefreshGraph={setRefreshGraph} />
+      <BarGraph refresh={refreshGraph} />
     </>
-  )
-}
+  );
+};
 
 export default HomePage;
